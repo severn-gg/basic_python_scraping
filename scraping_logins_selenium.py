@@ -9,10 +9,12 @@ import getpass
 
 #IF USING A RASPBERRY PI, FIRST INSTALL THIS OPTIMIZED CHROME DRIVER
 #sudo apt-get install chromium-chromedriver
-browser_driver = Service('/usr/lib/chromium-browser/chromedriver')
-page_to_scrape = webdriver.Chrome(service=browser_driver)
-page_to_scrape.get("https://quotes.toscrape.com")
-
+# browser_driver = Service('/usr/lib/chromium-browser/chromedriver')
+page_to_scrape = webdriver.Chrome()
+page_to_scrape.get("https://play.google.com/store/apps/details?id=com.app.cumobileonline&pli=1")
+time.sleep(3)
+page_to_scrape.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d").click()
+time.sleep(2)
 page_to_scrape.find_element(By.LINK_TEXT, "Login").click()
 
 time.sleep(3)
