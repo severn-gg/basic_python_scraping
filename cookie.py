@@ -1,4 +1,5 @@
 import pickle
+from selenium.webdriver.common.by import By
 import pprint
 import time
 
@@ -40,26 +41,29 @@ def delete_cookies(driver, domains=None):
 
 
 # Path where you want to save/load cookies to/from aka C:\my\fav\directory\cookies.txt
-cookies_location = "D:\python\basic_python_scraping"
+cookies_location = "D:\python\python_scraping\cookie.txt"
 
-# # Initial load of the domain that we want to save cookies for
-# chrome = webdriver.Chrome()
-# chrome.get("https://www.hackerrank.com/login")
-# chrome.find_element_by_xpath("//input[@id='login']").send_keys("infunig1986")
-# chrome.find_element_by_xpath("(//input[@id='password'])[2]").send_keys("TestUserAccount")
-# chrome.find_element_by_xpath("(//button[@name='commit'])[2]").click()
-# save_cookies(chrome, cookies_location)
-# chrome.quit()
+# Initial load of the domain that we want to save cookies for
+chrome = webdriver.Firefox()
+chrome.get("https://www.google.com")
+chrome.find_element(By.CLASS_NAME, "gb_Hd").click()
+chrome.find_element(By.XPATH, '//*[@id="identifierId"]').send_keys("9gag.lool.@gmail.com")
+chrome.find_element(By.XPATH, '//*[@id="identifierNext"]/div/button').click()
+time.sleep(5)
+chrome.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[1]/div/form/span/section[2]/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input').send_keys("bokep123!")
+chrome.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[2]/div/div[1]/div/div/button').click()
+save_cookies(chrome, cookies_location)
+chrome.quit()
 
 # Load of the page you cant access without cookies, this one will fail
 # chrome = webdriver.Chrome()
 # chrome.get("https://play.google.com/store/apps/details?id=com.app.cumobileonline&pli=1")
 
 
-# Load of the page you cant access without cookies, this one will go through
-chrome = webdriver.Chrome()
-load_cookies(chrome, cookies_location)
-chrome.get("https://play.google.com/store/apps/details?id=com.app.cumobileonline&pli=1")
+# # Load of the page you cant access without cookies, this one will go through
+# chrome = webdriver.Chrome()
+# load_cookies(chrome, cookies_location)
+# chrome.get("https://play.google.com/store/apps/details?id=com.app.cumobileonline&pli=1")
 
 # chrome = webdriver.Chrome()
 # chrome.get("https://google.com")
