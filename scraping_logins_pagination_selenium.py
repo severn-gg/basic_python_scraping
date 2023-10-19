@@ -10,37 +10,30 @@ from selenium.common.exceptions import NoSuchElementException
 
 #IF USING A RASPBERRY PI, FIRST INSTALL THIS OPTIMIZED CHROME DRIVER
 #sudo apt-get install chromium-chromedriver
-browser_driver = Service('/usr/lib/chromium-browser/chromedriver')
-page_to_scrape = webdriver.Chrome(service=browser_driver)
-page_to_scrape.get("http://quotes.toscrape.com")
+# browser_driver = Service('/usr/lib/chromium-browser/chromedriver')
+page_to_scrape = webdriver.Chrome()
+page_to_scrape.get("https://play.google.com/store/apps/details?id=com.app.cumobileonline&pli=1")
 
-page_to_scrape.find_element(By.LINK_TEXT, "Login").click()
+page_to_scrape.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d").click()
 
 time.sleep(3)
-username = page_to_scrape.find_element(By.ID, "username")
-password = page_to_scrape.find_element(By.ID, "password")
-username.send_keys("admin")
-#USING GETPASS WILL PROMPT YOU TO ENTER YOUR PASSWORD INSTEAD OF STORING
-#IT IN CODE. YOU'RE ALSO WELCOME TO USE A PYTHON KEYRING TO STORE PASSWORDS.
-my_pass = getpass.getpass()
-password.send_keys(my_pass)
-page_to_scrape.find_element(By.CSS_SELECTOR, "input.btn-primary").click()
 
-quotes = page_to_scrape.find_elements(By.CLASS_NAME, "text")
-authors = page_to_scrape.find_elements(By.CLASS_NAME, "author")
+author = page_to_scrape.find_elements(By.CLASS_NAME, "X5PpBb")
+date = page_to_scrape.find_elements(By.CLASS_NAME, "bp9Aid")
+star = page_to_scrape.find_elements(By.CLASS_NAME, "iXRFPc")
+comment = page_to_scrape.find_elements(By.CLASS_NAME, "h3YV2d")
 
 file = open("scraped_quotes.csv", "w")
 writer = csv.writer(file)
 
-writer.writerow(["QUOTES", "AUTHORS"])
+writer.writerow(["AUTHORS","Date","STAR","COMMENT"])
 while True:
-    quotes = page_to_scrape.find_elements(By.CLASS_NAME, "text")
-    authors = page_to_scrape.find_elements(By.CLASS_NAME, "author")
-    for quote, author in zip(quotes, authors):
-        print(quote.text + " - " + author.text)
-        writer.writerow([quote.text, author.text])
-    try:
-        page_to_scrape.find_element(By.PARTIAL_LINK_TEXT, "Next").click()
-    except NoSuchElementException:
-        break
+    author = page_to_scrape.find_elements(By.CLASS_NAME, "X5PpBb")
+    date = page_to_scrape.find_elements(By.CLASS_NAME, "bp9Aid")
+    star = page_to_scrape.find_elements(By.CLASS_NAME, "iXRFPc")
+    comment = page_to_scrape.find_elements(By.CLASS_NAME, "h3YV2d")
+    for quote, author in zip(author,date,star,comment):
+        # print(quote.text + " - " + author.text)
+        writer.writerow([author.text, date.text, star.text, comment.text])
+    break
 file.close()
