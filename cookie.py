@@ -44,7 +44,7 @@ def delete_cookies(driver, domains=None):
 cookies_location = "D:\python\python_scraping\cookie.txt"
 
 # Initial load of the domain that we want to save cookies for
-chrome = webdriver.Firefox()
+chrome = webdriver.Chrome()
 chrome.get("https://www.google.com")
 chrome.find_element(By.CLASS_NAME, "gb_Hd").click()
 chrome.find_element(By.XPATH, '//*[@id="identifierId"]').send_keys("9gag.lool.@gmail.com")
